@@ -2,4 +2,10 @@ on rightclick on sign:
   if line 1 of the clicked block is not "":
     if line 2 of the clicked block is not "":
       if line 3 of the clicked block is not "":
-        send "sign has text" to player
+        set {_item} to line 1 of the clicked block parsed as an item
+        set {_enchant} to line 2 of the clicked block
+        set {_cost} to line 3 of the clicked block parsed as a number
+        if {money.%player's uuid%} is greater than or equal to {_cost}:
+          enchant {_item} with {_enchant} parsed as enchantment type
+          give {_item} to player
+          set {money.%player's uuid%} to {money.%player's uuid%} - {_cost}

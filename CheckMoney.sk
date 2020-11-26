@@ -1,0 +1,8 @@
+command /money:
+  description: Tells player how much money they have
+  usage: /money
+  executable by: players
+  trigger:
+    if {money.%player's uuid%} is not set:
+      set {money.%player's uuid%} to 0
+    send "Money: %{money.%player's uuid%}%" to player
