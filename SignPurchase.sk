@@ -1,0 +1,5 @@
+on rightclick on sign:
+  if line 1 of the clicked block is not "":
+    if line 2 of the clicked block is not "":
+      if line 3 of the clicked block is not "":
+        send "sign has text" to player
