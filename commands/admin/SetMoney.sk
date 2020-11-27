@@ -4,5 +4,8 @@ command /setmoney <number>:
   permission: mn.zombiegame.admin
   executable by: players
   trigger:
-    set {money.%player's uuid%} to arg-1
-    send "Set money to %arg-1%" to player
+    if {minigameActive} is true:
+      set {money.%player's uuid%} to arg-1
+      send "Set money to %arg-1%" to player
+    else:
+      send "Minigame not active" to player

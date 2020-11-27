@@ -2,6 +2,7 @@ command /unready:
   description: Sets player to not ready
   usage: /unready
   trigger:
-    set {ready.%player's uuid%} to false
-    broadcast "&c%player% is not ready"
-    set {allReady} to false
+    if {minigameActive} is false:
+      set {ready.%player's uuid%} to false
+      broadcast "&c%player% is not ready"
+      set {allReady} to false

@@ -22,6 +22,8 @@ function startRound():
   set {zombiesCount} to (.5 * ((5 * {round} * {round}) + {round} + 6)) - (.5 * ((5 * ({round} - 1) * ({round} - 1)) + ({round} - 1) + 6))
   send title "&cRound %{round}%" with subtitle "&cZombies: %{zombiesCount}%" to all players for 5 seconds
   loop {zombiesCount} times:
+    if {minigameActive} is false:
+      stop
     set {_spawn} to random element out of {spawnpoints::*}
     spawn 1 Zombie at {_spawn}
     set name of last spawned entity to ""
@@ -38,11 +40,17 @@ function startReadyTimer():
   startMinigame()
 
 function endGame():
+  set {minigameActive} to false
+  kill all Monsters
   loop all players:
-    set {minigameActive} to false
-    set {ready.%player's uuid%} to false
+    set {ready.%loop-player's uuid%} to false
+    set {money.%loop-player's uuid%} to 0
     set gamemode of loop-player to adventure
-    teleport loop-player to spawn
+    clear inventory of loop-player
+    heal loop-player
+    set food level of loop-player to 20
+    teleport loop-player to spawn of loop-player's world
+  send title "Game Over" with subtitle "&cRound: %{round}%" to all players for 5 seconds
 
 on damage:
   if {minigameActive} is true:
@@ -53,7 +61,7 @@ on damage:
 on death:
   if {minigameActive} is true:
     clear drops
-    if victim is a zombie:
+    if victim is a Monster:
       if the attacker's tool is a sword:
         set {money.%attacker's uuid%} to {money.%attacker's uuid%} + 130
         send action bar "&6+130" to attacker

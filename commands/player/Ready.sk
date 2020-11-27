@@ -2,11 +2,12 @@ command /ready:
   description: Sets player to ready
   usage: /ready
   trigger:
-    set {ready.%player's uuid%} to true
-    broadcast "&a%player% is ready"
-    set {allReady} to true
-    loop all players:
-      if {ready.%player's uuid%} is false:
-        set {allReady} to false
-    if {allReady} is true:
-      startReadyTimer()
+    if {minigameActive} is false:
+      set {ready.%player's uuid%} to true
+      broadcast "&a%player% is ready"
+      set {allReady} to true
+      loop all players:
+        if {ready.%player's uuid%} is false:
+          set {allReady} to false
+      if {allReady} is true:
+        startReadyTimer()

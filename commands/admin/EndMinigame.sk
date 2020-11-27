@@ -1,0 +1,9 @@
+command /endminigame:
+  description: Ends the minigame
+  usage: /endminigame
+  permission: mn.zombiegame.admin
+  trigger:
+    if {minigameActive} is true:
+      endGame()
+    else:
+      send "Minigame is not active" to player

@@ -3,6 +3,7 @@ command /money:
   usage: /money
   executable by: players
   trigger:
-    if {money.%player's uuid%} is not set:
-      set {money.%player's uuid%} to 0
-    send "Money: %{money.%player's uuid%}%" to player
+    if {minigameActive} is true:
+      if {money.%player's uuid%} is not set:
+        set {money.%player's uuid%} to 0
+      send "Money: %{money.%player's uuid%}%" to player

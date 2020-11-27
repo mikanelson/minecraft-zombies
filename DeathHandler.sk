@@ -6,3 +6,9 @@ on damage of a player:
     cancel event
     set victim's gamemode to spectator
     clear the victim's inventory
+    set {_gameOver} to true
+    loop all players:
+      if gamemode of loop-player is not spectator:
+        set {_gameOver} to false
+    if {_gameOver} is true:
+      endGame()

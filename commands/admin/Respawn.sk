@@ -3,4 +3,7 @@ command /respawn <player>:
   permission: mn.zombiegame.admin
   usage: /respawn <player>
   trigger:
-    SpawnPlayer(arg-1)
+    if {minigameActive} is true:
+      SpawnPlayer(arg-1)
+    else:
+      send "Minigame not active" to player
