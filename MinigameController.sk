@@ -8,6 +8,9 @@ function startMinigame():
     broadcast "Game failed to start - No spawn points set"
 
 function startRound():
+  loop all players:
+    if gamemode of loop-player is spectator:
+      RespawnPlayer(loop-player)
   set {zombiesCount} to (.5 * ((5 * {round} * {round}) + {round} + 6)) - (.5 * ((5 * ({round} - 1) * ({round} - 1)) + ({round} - 1) + 6))
   send title "&cRound %{round}%" with subtitle "&cZombies: %{zombiesCount}%" to all players for 5 seconds
   loop {zombiesCount} times:
@@ -52,8 +55,20 @@ command /startzombiegame:
   trigger:
     startMinigame()
 
+on damage:
+  if the victim is not a player:
+    set {money.%attacker's uuid%} to {money.%attacker's uuid%} + 10
+    send action bar "&6+10" to attacker
+
 on death:
-  if victim is not a player:
+  clear drops
+  if victim is a zombie:
+    if the attacker's tool is a sword:
+      set {money.%attacker's uuid%} to {money.%attacker's uuid%} + 130
+      send action bar "&6+130" to attacker
+    else:
+      set {money.%attacker's uuid%} to {money.%attacker's uuid%} + 60
+      send action bar "&6+60" to attacker
     set {zombiesCount} to {zombiesCount} - 1
     if {zombiesCount} is 0:
       wait 60 ticks

@@ -1,0 +1,8 @@
+on damage of a player:
+  if damage cause is a player:
+    cancel event
+  else if the damage is greater than or equal to the victim's health:
+    broadcast "&c%victim% has died"
+    cancel event
+    set victim's gamemode to spectator
+    clear the victim's inventory
