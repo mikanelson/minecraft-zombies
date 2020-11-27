@@ -15,16 +15,46 @@ function startRound():
     spawn 1 Zombie at {_spawn}
     set name of last spawned entity to ""
     wait 40 ticks
-    broadcast "spawned zombie"
+
+function startReadyTimer():
+  broadcast "&aAll players ready"
+  loop 5 times:
+    if {allReady} is false:
+      stop
+    set {_timer} to 6 - loop-number
+    broadcast "Starting in %{_timer}% seconds"
+    wait 1 second
+  startMinigame()
+
+command /ready:
+  description: Sets player to ready
+  usage: /ready
+  trigger:
+    set {ready.%player's uuid%} to true
+    broadcast "&a%player% is ready"
+    set {allReady} to true
+    loop all players:
+      if {ready.%player's uuid%} is false:
+        set {allReady} to false
+    if {allReady} is true:
+      startReadyTimer()
+
+command /unready:
+  description: Sets player to not ready
+  usage: /unready
+  trigger:
+    set {ready.%player's uuid%} to false
+    broadcast "&c%player% is not ready"
+    set {allReady} to false
 
 command /startzombiegame:
+  permission: mn.zombiegame.admin
   trigger:
     startMinigame()
 
 on death:
   if victim is not a player:
     set {zombiesCount} to {zombiesCount} - 1
-    broadcast "remaining %{zombiesCount}%"
     if {zombiesCount} is 0:
       wait 60 ticks
       set {round} to {round} + 1
