@@ -1,0 +1,6 @@
+command /respawn <player>:
+  description: Respawns a player
+  permission: mn.zombiegame.admin
+  usage: /respawn <player>
+  trigger:
+    RespawnPlayer(arg-1)

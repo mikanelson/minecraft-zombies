@@ -29,32 +29,6 @@ function startReadyTimer():
     wait 1 second
   startMinigame()
 
-command /ready:
-  description: Sets player to ready
-  usage: /ready
-  trigger:
-    set {ready.%player's uuid%} to true
-    broadcast "&a%player% is ready"
-    set {allReady} to true
-    loop all players:
-      if {ready.%player's uuid%} is false:
-        set {allReady} to false
-    if {allReady} is true:
-      startReadyTimer()
-
-command /unready:
-  description: Sets player to not ready
-  usage: /unready
-  trigger:
-    set {ready.%player's uuid%} to false
-    broadcast "&c%player% is not ready"
-    set {allReady} to false
-
-command /startzombiegame:
-  permission: mn.zombiegame.admin
-  trigger:
-    startMinigame()
-
 on damage:
   if the victim is not a player:
     set {money.%attacker's uuid%} to {money.%attacker's uuid%} + 10

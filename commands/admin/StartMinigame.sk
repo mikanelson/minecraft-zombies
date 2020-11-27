@@ -1,0 +1,4 @@
+command /startzombiegame:
+  permission: mn.zombiegame.admin
+  trigger:
+    startMinigame()

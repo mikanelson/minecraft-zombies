@@ -3,9 +3,3 @@ function RespawnPlayer(p: player):
   teleport {_p} to spawn of {_p}'s world
   heal {_p}
   set food level of {_p} to 20
-
-command /respawn <player>:
-  description: Respawns a player
-  usage: /respawn <player>
-  trigger:
-    RespawnPlayer(arg-1)

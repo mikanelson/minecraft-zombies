@@ -1,0 +1,7 @@
+command /unready:
+  description: Sets player to not ready
+  usage: /unready
+  trigger:
+    set {ready.%player's uuid%} to false
+    broadcast "&c%player% is not ready"
+    set {allReady} to false
