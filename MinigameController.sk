@@ -1,16 +1,24 @@
 function startMinigame():
   if size of {spawnpoints::*} is not 0:
+    set {minigameActive} to true
     set {round} to 1
     loop all players:
       set {money.%loop-player's uuid%} to 500
     startRound()
   else:
     broadcast "Game failed to start - No spawn points set"
+    set {allReady} to false
 
 function startRound():
-  loop all players:
-    if gamemode of loop-player is spectator:
-      RespawnPlayer(loop-player)
+  if {round} is 1:
+    loop all players:
+      SpawnPlayer(loop-player)
+  else:
+    loop all players:
+      if gamemode of loop-player is spectator:
+        SpawnPlayer(loop-player)
+      else:
+        heal loop-player
   set {zombiesCount} to (.5 * ((5 * {round} * {round}) + {round} + 6)) - (.5 * ((5 * ({round} - 1) * ({round} - 1)) + ({round} - 1) + 6))
   send title "&cRound %{round}%" with subtitle "&cZombies: %{zombiesCount}%" to all players for 5 seconds
   loop {zombiesCount} times:
@@ -29,22 +37,31 @@ function startReadyTimer():
     wait 1 second
   startMinigame()
 
+function endGame():
+  loop all players:
+    set {minigameActive} to false
+    set {ready.%player's uuid%} to false
+    set gamemode of loop-player to adventure
+    teleport loop-player to spawn
+
 on damage:
-  if the victim is not a player:
-    set {money.%attacker's uuid%} to {money.%attacker's uuid%} + 10
-    send action bar "&6+10" to attacker
+  if {minigameActive} is true:
+    if the victim is not a player:
+      set {money.%attacker's uuid%} to {money.%attacker's uuid%} + 10
+      send action bar "&6+10" to attacker
 
 on death:
-  clear drops
-  if victim is a zombie:
-    if the attacker's tool is a sword:
-      set {money.%attacker's uuid%} to {money.%attacker's uuid%} + 130
-      send action bar "&6+130" to attacker
-    else:
-      set {money.%attacker's uuid%} to {money.%attacker's uuid%} + 60
-      send action bar "&6+60" to attacker
-    set {zombiesCount} to {zombiesCount} - 1
-    if {zombiesCount} is 0:
-      wait 60 ticks
-      set {round} to {round} + 1
-      startRound()
+  if {minigameActive} is true:
+    clear drops
+    if victim is a zombie:
+      if the attacker's tool is a sword:
+        set {money.%attacker's uuid%} to {money.%attacker's uuid%} + 130
+        send action bar "&6+130" to attacker
+      else:
+        set {money.%attacker's uuid%} to {money.%attacker's uuid%} + 60
+        send action bar "&6+60" to attacker
+      set {zombiesCount} to {zombiesCount} - 1
+      if {zombiesCount} is 0:
+        wait 60 ticks
+        set {round} to {round} + 1
+        startRound()

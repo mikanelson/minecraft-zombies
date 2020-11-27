@@ -3,4 +3,4 @@ command /respawn <player>:
   permission: mn.zombiegame.admin
   usage: /respawn <player>
   trigger:
-    RespawnPlayer(arg-1)
+    SpawnPlayer(arg-1)

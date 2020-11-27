@@ -1,5 +1,8 @@
-function RespawnPlayer(p: player):
+function SpawnPlayer(p: player):
+  clear inventory of {_p}
   set gamemode of {_p} to adventure
   teleport {_p} to spawn of {_p}'s world
   heal {_p}
   set food level of {_p} to 20
+  give {_p} a Wood Sword
+  give {_p} 64 Steak

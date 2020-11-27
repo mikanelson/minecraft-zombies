@@ -1,3 +1,6 @@
 on join:
   set {ready.%player's uuid%} to false
   set {allReady} to false
+
+on load:
+  set {minigameActive} to false
