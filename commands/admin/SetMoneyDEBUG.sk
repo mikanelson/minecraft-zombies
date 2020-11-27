@@ -1,6 +1,7 @@
 command /setmoney <number>:
   description: Sets player's money to amount specified
   usage: /setmoney <amount>
+  permission: mn.zombiegame.admin
   executable by: players
   trigger:
     set {money.%player's uuid%} to arg-1

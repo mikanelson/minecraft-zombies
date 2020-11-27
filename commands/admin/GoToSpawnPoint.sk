@@ -1,0 +1,7 @@
+command /gotospawnpoint <number>:
+  description: Teleports player to indicated spawn point
+  usage: /gotospawnpoint <index>
+  permission: mn.zombiegame.admin
+  executable by: players
+  trigger:
+    teleport player to {spawnpoints::%arg-1%}

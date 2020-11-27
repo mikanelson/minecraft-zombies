@@ -1,0 +1,7 @@
+command /clearspawnpoints:
+  description: Clears spawn point list
+  usage: /clearspawnpoints
+  permission: mn.zombiegame.admin
+  executable by: players
+  trigger:
+    clear {spawnpoints::*}

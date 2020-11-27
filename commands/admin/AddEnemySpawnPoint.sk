@@ -1,0 +1,8 @@
+command /addspawnpoint:
+  description: Adds a spawn point for enemies
+  usage: /addspawnpoint
+  permission: mn.zombiegame.admin
+  executable by: players
+  trigger:
+    add player's position to {spawnpoints::*}
+    send "Spawn point added at %player's position%" to player
