@@ -1,9 +1,12 @@
-command /spawnpoints:
+command /displayspawns:
   description: Displays current spawn points
-  usage: /spawnpoints
+  usage: /displayspawns
   permission: mn.zombiegame.admin
   executable by: players
   trigger:
-    loop {spawnpoints::*}:
-      send "%loop-index%. %loop-value%" to player
-      wait 2 ticks
+    if size of {spawnpoints::*} is 0:
+      send "No spawn points set" to players
+    else:
+      loop {spawnpoints::*}:
+        send "%loop-index%. %loop-value%" to player
+        wait 2 ticks

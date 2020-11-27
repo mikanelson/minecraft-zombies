@@ -5,3 +5,4 @@ command /clearspawnpoints:
   executable by: players
   trigger:
     clear {spawnpoints::*}
+    send "Spawn points cleared" to player

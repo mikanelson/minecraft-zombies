@@ -5,3 +5,4 @@ command /setmoney <number>:
   executable by: players
   trigger:
     set {money.%player's uuid%} to arg-1
+    send "Set money to %arg-1%" to player

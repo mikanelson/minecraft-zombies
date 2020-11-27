@@ -1,0 +1,11 @@
+function startMinigame():
+  if size of {spawnpoints::*} is not 0:
+    set {round} to 1
+    loop all players:
+      set {money::%loop-player's uuid%} to 500
+    startRound()
+  else:
+    broadcast "Game failed to start - No spawn points set"
+
+function startRound():
+  send title "&cRound {round}%" to all players for 5 seconds
